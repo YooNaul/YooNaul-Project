@@ -1,4 +1,4 @@
-package project1.ver05;
+package project1.ver06;
 
 public class PhoneInfo
 {
@@ -20,7 +20,6 @@ public class PhoneInfo
 		System.out.println("전화번호:"+phoneNumber);
 		
 	}
-	
 	
 }
 

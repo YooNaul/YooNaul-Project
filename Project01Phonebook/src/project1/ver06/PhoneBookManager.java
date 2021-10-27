@@ -1,12 +1,10 @@
-package project1.ver05;
+package project1.ver06;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import project1.ver05.PhoneCompanyInfo;
-import project1.ver05.PhoneInfo;
-import project1.ver05.PhoneSchoolInfo;
+ 
 
 class PhoneInfoHandler2 {
 	ArrayList<PhoneInfo> lists;
@@ -26,31 +24,33 @@ class PhoneInfoHandler2 {
 		
 		System.out.println("1.일반, 2.동창, 3.회사"); iChoice = scan.nextInt();
 		scan.nextLine();
-		
-		System.out.println("이름:"); iName = scan.nextLine();
-		System.out.println("전화번호:"); iPhone = scan.nextLine();
-		
-		lists.add(new PhoneInfo(iName, iPhone));
-		switch(choice) {
+
+		switch(iChoice) {
 			case SubMenuItem.nomal:
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				lists.add(new PhoneInfo(iName, iPhone));
-			
+				break;
 			case SubMenuItem.school: 
 				
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				System.out.print("전공:"); 
 				iMajor = scan.nextLine();
 				System.out.print("학년:"); 
 				iGrade = scan.nextInt();
 	
 				lists.add(new PhoneSchoolInfo(iName, iPhone, iMajor, iGrade));
-			
+				break;
 			case SubMenuItem.company:
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				System.out.println("회사:"); 
 				iCompanyName = scan.nextLine();
 				
 				lists.add(new PhoneCompanyInfo(iName, iPhone, iCompanyName));
+				break;
 			
-			System.out.println("친구정보 입력이 완료되었습니다.");
 		}
 		
 		
@@ -67,7 +67,7 @@ class PhoneInfoHandler2 {
 		Iterator<PhoneInfo> itr = lists.iterator();
 		while(itr.hasNext()) {
 			PhoneInfo fr = itr.next();
-			if(searchName.compareTo(itr.next().name)==0) {
+			if(searchName.compareTo(fr.name)==0) {
 				
 				fr.showPhoneInfo();
 				System.out.println("##귀하가 요청하는 정보를 찾았습니다.##");
@@ -108,13 +108,4 @@ class PhoneInfoHandler2 {
 		}
 	}
 }
-public class PhoneBookManager
-{
 
-	public static void main(String[] args)
-	{
-		
-
-	}
-
-}

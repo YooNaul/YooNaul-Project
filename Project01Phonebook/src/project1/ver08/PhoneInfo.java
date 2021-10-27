@@ -1,4 +1,4 @@
-package project1.ver05;
+package project1.ver08;
 
 public class PhoneInfo
 {
@@ -20,7 +20,21 @@ public class PhoneInfo
 		System.out.println("전화번호:"+phoneNumber);
 		
 	}
-	
+	@Override
+	public int hashCode()
+	{
+		return (this.name).hashCode();
+	}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof PhoneInfo) {
+			PhoneInfo p = (PhoneInfo)obj;
+			return this.hashCode()==p.hashCode();
+		}
+		return false;
+		
+	}
 	
 }
 

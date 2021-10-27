@@ -1,21 +1,24 @@
-package project1.ver05;
+package project1.ver07;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
-import project1.ver05.PhoneCompanyInfo;
-import project1.ver05.PhoneInfo;
-import project1.ver05.PhoneSchoolInfo;
+ 
 
 class PhoneInfoHandler2 {
-	ArrayList<PhoneInfo> lists;
-	private PhoneInfo[] myPhone;
 	
-	private int numOfPhone;
+	HashSet<PhoneInfo> info;
+	
+	ArrayList<PhoneInfo> lists = new ArrayList<PhoneInfo>();
+	
 	
 	public PhoneInfoHandler2(int num) {
-		lists = new ArrayList<PhoneInfo>();	
+		
+		info = new HashSet<PhoneInfo>();
+			
 	}
 	public void addPhone(int choice) {
 		
@@ -27,31 +30,54 @@ class PhoneInfoHandler2 {
 		System.out.println("1.일반, 2.동창, 3.회사"); iChoice = scan.nextInt();
 		scan.nextLine();
 		
-		System.out.println("이름:"); iName = scan.nextLine();
-		System.out.println("전화번호:"); iPhone = scan.nextLine();
+		PhoneInfo phoneIF = null;
 		
-		lists.add(new PhoneInfo(iName, iPhone));
-		switch(choice) {
+		
+		switch(iChoice) {
 			case SubMenuItem.nomal:
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				lists.add(new PhoneInfo(iName, iPhone));
-			
+				break;
 			case SubMenuItem.school: 
 				
-				System.out.print("전공:"); 
-				iMajor = scan.nextLine();
-				System.out.print("학년:"); 
-				iGrade = scan.nextInt();
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
+				System.out.print("전공:"); iMajor = scan.nextLine();
+				System.out.print("학년:"); iGrade = scan.nextInt();
 	
 				lists.add(new PhoneSchoolInfo(iName, iPhone, iMajor, iGrade));
-			
+				break;
 			case SubMenuItem.company:
-				System.out.println("회사:"); 
-				iCompanyName = scan.nextLine();
+				System.out.println("이름:"); iName = scan.nextLine();
+				System.out.println("전화번호:"); iPhone = scan.nextLine();
+				System.out.println("회사:"); iCompanyName = scan.nextLine();
 				
 				lists.add(new PhoneCompanyInfo(iName, iPhone, iCompanyName));
-			
-			System.out.println("친구정보 입력이 완료되었습니다.");
+				break;	
 		}
+		boolean overwrite = info.add(phoneIF);
+		if(overwrite==false) {
+			System.out.println("이미 저장된 데이터입니다.");
+			System.out.println("덮어쓸까요? Y(y) / N(n) ");
+			char choice2 = scan.next().charAt(0);
+			if(choice2=='Y' || choice2=='y') {
+				info.remove(phoneIF);
+				info.add(phoneIF);
+				System.out.println("입력한 정보가 저장되었습니다");
+			}
+			else if(choice2=='N' || choice2=='n') {
+				lists.add(phoneIF);
+			}
+		}
+		else {
+			System.out.println("입력완료");
+		}
+		
+			
+		
+		
+		
 		
 		
 		
@@ -67,7 +93,7 @@ class PhoneInfoHandler2 {
 		Iterator<PhoneInfo> itr = lists.iterator();
 		while(itr.hasNext()) {
 			PhoneInfo fr = itr.next();
-			if(searchName.compareTo(itr.next().name)==0) {
+			if(searchName.compareTo(fr.name)==0) {
 				
 				fr.showPhoneInfo();
 				System.out.println("##귀하가 요청하는 정보를 찾았습니다.##");
@@ -108,13 +134,4 @@ class PhoneInfoHandler2 {
 		}
 	}
 }
-public class PhoneBookManager
-{
 
-	public static void main(String[] args)
-	{
-		
-
-	}
-
-}

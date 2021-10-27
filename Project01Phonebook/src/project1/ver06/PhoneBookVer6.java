@@ -1,16 +1,14 @@
-package project1.ver05;
+package project1.ver06;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import project1.ver01.PhoneCompanyInfo;
-import project1.ver01.PhoneInfo;
-import project1.ver01.PhoneSchoolInfo;
 
 
-public class PhoneBookVer2 
+
+public class PhoneBookVer6 
 {
 	
 	public static void showMenu() {
@@ -31,6 +29,10 @@ public class PhoneBookVer2
 				showMenu();
 				
 				int choice = scanner.nextInt();
+				if(choice<1 || choice>5) {
+					MenuSelectException ex = new MenuSelectException();
+					throw ex;
+				}
 				switch(choice) {
 					case MenuItem.addPhone:
 						scanner.nextLine();
@@ -51,9 +53,12 @@ public class PhoneBookVer2
 					case MenuItem.exit:
 						System.out.println("프로그램을 종료합니다.");
 						return;
-				}	
+				}
 				
 			}
+		}
+		catch(MenuSelectException e) {
+			System.out.println("1~5까지 입력하세요.");
 		}
 		catch(InputMismatchException e) {
 			e.printStackTrace();
@@ -62,5 +67,6 @@ public class PhoneBookVer2
 			e.printStackTrace();
 		}
 	}
+	
 }
 
