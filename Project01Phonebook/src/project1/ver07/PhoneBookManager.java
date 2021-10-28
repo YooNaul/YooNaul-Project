@@ -3,6 +3,7 @@ package project1.ver07;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -10,14 +11,14 @@ import java.util.Set;
 
 class PhoneInfoHandler2 {
 	
-	HashSet<PhoneInfo> info;
+	HashSet<PhoneInfo> set = new HashSet<PhoneInfo>();
 	
-	ArrayList<PhoneInfo> lists = new ArrayList<PhoneInfo>();
+	
 	
 	
 	public PhoneInfoHandler2(int num) {
 		
-		info = new HashSet<PhoneInfo>();
+		
 			
 	}
 	public void addPhone(int choice) {
@@ -30,14 +31,16 @@ class PhoneInfoHandler2 {
 		System.out.println("1.일반, 2.동창, 3.회사"); iChoice = scan.nextInt();
 		scan.nextLine();
 		
-		PhoneInfo phoneIF = null;
-		
+		//PhoneInfo phoneInfo = null;
+		boolean overwrite = true;
+		PhoneInfo phoneInfo = null;
 		
 		switch(iChoice) {
 			case SubMenuItem.nomal:
 				System.out.println("이름:"); iName = scan.nextLine();
 				System.out.println("전화번호:"); iPhone = scan.nextLine();
-				lists.add(new PhoneInfo(iName, iPhone));
+				phoneInfo = new PhoneInfo(iName, iPhone);
+				overwrite = set.add(phoneInfo);
 				break;
 			case SubMenuItem.school: 
 				
@@ -45,41 +48,37 @@ class PhoneInfoHandler2 {
 				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				System.out.print("전공:"); iMajor = scan.nextLine();
 				System.out.print("학년:"); iGrade = scan.nextInt();
-	
-				lists.add(new PhoneSchoolInfo(iName, iPhone, iMajor, iGrade));
+				phoneInfo = new PhoneSchoolInfo(iName, iPhone, iMajor, iGrade);
+				overwrite = set.add(phoneInfo);
 				break;
 			case SubMenuItem.company:
 				System.out.println("이름:"); iName = scan.nextLine();
 				System.out.println("전화번호:"); iPhone = scan.nextLine();
 				System.out.println("회사:"); iCompanyName = scan.nextLine();
-				
-				lists.add(new PhoneCompanyInfo(iName, iPhone, iCompanyName));
+				phoneInfo = new PhoneCompanyInfo(iName, iPhone, iCompanyName);
+				overwrite = set.add(phoneInfo);
 				break;	
 		}
-		boolean overwrite = info.add(phoneIF);
-		if(overwrite==false) {
-			System.out.println("이미 저장된 데이터입니다.");
-			System.out.println("덮어쓸까요? Y(y) / N(n) ");
-			char choice2 = scan.next().charAt(0);
-			if(choice2=='Y' || choice2=='y') {
-				info.remove(phoneIF);
-				info.add(phoneIF);
-				System.out.println("입력한 정보가 저장되었습니다");
-			}
-			else if(choice2=='N' || choice2=='n') {
-				lists.add(phoneIF);
-			}
-		}
-		else {
+		if(overwrite==true) {
 			System.out.println("입력완료");
 		}
-		
+		else {
+				System.out.println("이미 저장된 데이터입니다.");
+				System.out.println("덮어쓸까요? Y(y) / N(n) ");
+				String ans = scan.nextLine();
+				if(ans.equalsIgnoreCase("Y")) {
+					set.remove(phoneInfo);
+					set.add(phoneInfo);
+					System.out.println("입력한 정보가 저장되었습니다");
+				}
+				else {
+					System.out.println("입력하신 정보는 저장되지 않습니다.");
+				}
 			
-		
-		
-		
-		
-		
+			
+			
+		}	
+			
 		
 	}
 	public void dataSearch() {
@@ -90,7 +89,7 @@ class PhoneInfoHandler2 {
 		String searchName = scan.nextLine();
 		
 		
-		Iterator<PhoneInfo> itr = lists.iterator();
+		Iterator<PhoneInfo> itr = set.iterator();
 		while(itr.hasNext()) {
 			PhoneInfo fr = itr.next();
 			if(searchName.compareTo(fr.name)==0) {
@@ -104,8 +103,9 @@ class PhoneInfoHandler2 {
 			System.out.println("***찾는 정보가 없습니다***");
 	}
 	public void dataAllShow() {
-		for(int i=0 ; i<lists.size() ; i++) {
-			lists.get(i).showPhoneInfo();
+		Iterator<PhoneInfo> iterSet = set.iterator();
+		while(iterSet.hasNext()) {
+			iterSet.next().showPhoneInfo();
 		}
 		System.out.println("==전체정보가 출력되었습니다==");
 	}
@@ -117,10 +117,10 @@ class PhoneInfoHandler2 {
 		int deleteIndex = -1;
 		
 		
-		for(PhoneInfo fr : lists) {
+		for(PhoneInfo fr : set) {
 			
 			if(deleteName.compareTo(fr.name)==0) {
-				lists.remove(fr);
+				set.remove(fr);
 				deleteIndex = 1;
 				break;
 			}

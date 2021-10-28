@@ -16,12 +16,13 @@ public class PhoneBookVer8
 		System.out.println("2.데이터 검색");
 		System.out.println("3.데이터 삭제");
 		System.out.println("4.주소록 출력");
-		System.out.println("5.프로그램 종료");
+		System.out.println("5.저장옵션");
+		System.out.println("6.프로그램 종료");
 	}
 	
 	public static void main(String[] args)
 	{
-		PhoneInfoHandler2 handler = new PhoneInfoHandler2(100);
+		PhoneBookManager handler = new PhoneBookManager(100);
 		try {
 			Scanner scanner = new Scanner(System.in);
 			
@@ -29,7 +30,8 @@ public class PhoneBookVer8
 				showMenu();
 				
 				int choice = scanner.nextInt();
-				if(choice<1 || choice>5) {
+				AutoSaver sa = new AutoSaver(handler);
+				if(choice<1 || choice>6) {
 					MenuSelectException ex = new MenuSelectException();
 					throw ex;
 				}
@@ -49,6 +51,10 @@ public class PhoneBookVer8
 					case MenuItem.dataAllShow:
 						scanner.nextLine();
 						handler.dataAllShow();
+						break;
+					case MenuItem.autoSave:
+						scanner.nextLine();
+						handler.dataSaveOption(sa);
 						break;
 					case MenuItem.exit:
 						System.out.println("프로그램을 종료합니다.");

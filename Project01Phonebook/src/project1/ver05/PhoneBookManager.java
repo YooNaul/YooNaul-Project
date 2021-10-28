@@ -117,4 +117,10 @@ public class PhoneBookManager
 
 	}
 
+	public void saveInfoTxt()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

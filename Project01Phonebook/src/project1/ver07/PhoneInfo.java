@@ -21,19 +21,21 @@ public class PhoneInfo
 		
 	}
 	@Override
-	public int hashCode()
-	{
-		return (this.name).hashCode();
-	}
-	@Override
 	public boolean equals(Object obj)
 	{
-		if(obj instanceof PhoneInfo) {
-			PhoneInfo p = (PhoneInfo)obj;
-			return this.hashCode()==p.hashCode();
-		}
-		return false;
+		PhoneInfo pInfo = (PhoneInfo)obj;
 		
+		if(name.compareTo(pInfo.name)==0) {
+			return true;
+		}
+		else {
+			return false;			
+		}
+	}
+	@Override
+	public int hashCode()
+	{
+		return name.hashCode();
 	}
 	
 }

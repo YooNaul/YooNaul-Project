@@ -7,5 +7,6 @@ public interface MenuItem
 	int dataSearch = 2;
 	int dataDelete = 3;
 	int dataAllShow = 4;
-	int exit = 5;
+	int autoSave = 5;
+	int exit = 6;
 }
